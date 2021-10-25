@@ -1,0 +1,22 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+
+metadata:
+  name: sweetrpg-COMPONENT-web
+
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`dev.sweetrpg.com`) && (PathPrefix(`/api/0/COMPONENT`) || PathPrefix(`/api/1/COMPONENT`))
+      kind: Rule
+      services:
+        - kind: Service
+          name: sweetrpg-COMPONENT-web
+          port: 8281
+          passHostHeader: true
+          responseForwarding:
+            flushInterval: 1ms
+      middlewares:
+        - name: strip-prefix

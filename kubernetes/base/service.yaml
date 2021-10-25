@@ -1,0 +1,15 @@
+---
+kind: Service
+apiVersion: v1
+
+metadata:
+  name: sweetrpg-COMPONENT-web
+
+spec:
+  selector:
+    app: sweetrpg-COMPONENT-web
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 8281
+      targetPort: http
