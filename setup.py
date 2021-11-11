@@ -21,7 +21,7 @@ setup(
         "sweetrpg-db",
         "sweetrpg-web-core",
         "sweetrpg-COMPONENT-model",
-        "sweetrpg-sdk"
+        "sweetrpg-client"
     ],
     extras_require={},
 )
