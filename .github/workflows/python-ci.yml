@@ -16,6 +16,7 @@ jobs:
     tests:
         name: ${{ matrix.name }}
         runs-on: ${{ matrix.os }}
+        concurrency: ci
         strategy:
             fail-fast: false
             matrix:
@@ -59,6 +60,7 @@ jobs:
     docs:
         needs: [tests]
         runs-on: ubuntu-latest
+        concurrency: docs
         steps:
             - uses: actions/checkout@v2
             - uses: actions/setup-python@v2
