@@ -16,7 +16,7 @@ setup(
         "python-editor",
         "redis",
         "requests",
-        "sentry-sdk",
+        "sentry-sdk[flask]==1.5.0",
         "analytics-python<2.0",
         "sweetrpg-db",
         "sweetrpg-web-core",
