@@ -2,32 +2,34 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: sweetrpg-COMPONENT
+namespace: sweetrpg-PACKAGE
 
 resources:
-  - namespace.yaml
-  - ../../base
-  - configmaps.yaml
-  - middlewares.yaml
-  - ingress-route.yaml
+    - namespace.yaml
+    - ../../base
+    - configmaps.yaml
+    - middlewares.yaml
+    - ingress-route.yaml
 secretGenerator:
-  - name: sweetrpg-registry
-    type: kubernetes.io/dockerconfigjson
-    files:
-      - .dockerconfigjson
-  - name: sweetrpg-COMPONENT-web-env
-    type: Opaque
-    envs:
-      - secrets.env
-  - name: sweetrpg-COMPONENT-web-config-env
-    type: Opaque
-    files:
-      - newrelic.ini
+    - name: sweetrpg-registry
+      type: kubernetes.io/dockerconfigjson
+      files:
+          - .dockerconfigjson
+    - name: sweetrpg-COMPONENT-web-env
+      type: Opaque
+      envs:
+          - secrets.env
+    - name: sweetrpg-COMPONENT-web-config-env
+      type: Opaque
+      files:
+          - newrelic.ini
 
 commonLabels:
-  platform: sweetrpg
-  app: COMPONENT
-  component: web
+    app: PACKAGE-COMPONENT
+    version: v1
+    platform: sweetrpg
+    package: PACKAGE
+    component: web
 
 generatorOptions:
-  disableNameSuffixHash: true
+    disableNameSuffixHash: true
