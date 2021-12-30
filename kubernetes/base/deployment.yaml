@@ -25,7 +25,7 @@ spec:
                 component: web
                 version: v1
         spec:
-            serviceAccountName: sweetrpg-COMPONENT-web
+            serviceAccountName: PACKAGE-COMPONENT
             imagePullSecrets:
                 - name: sweetrpg-registry
             containers:
