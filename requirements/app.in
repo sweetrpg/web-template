@@ -9,7 +9,7 @@ Flask-MongoEngine
 Flask-OAuthlib
 Flask-REST-JSONAPI
 Flask-Session
-Flask==2.0.2
+Flask==2.2.3
 git+https://github.com/sweetrpg/web-core.git@develop
 git+https://github.com/sweetrpg/sdk.git@develop
 gunicorn
