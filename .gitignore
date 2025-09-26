@@ -12,7 +12,6 @@ __pycache__/
 .env
 .idea/
 .pytest_cache/
-.python-version
 .tox/
 .venv/
 .workon
