@@ -5,29 +5,17 @@ kind: Kustomization
 namespace: sweetrpg-COMPONENT
 
 resources:
-  - namespace.yaml
   - ../../base
   - configmaps.yaml
   - middlewares.yaml
-  - ingress-route.yaml
-secretGenerator:
-  - name: sweetrpg-registry
-    type: kubernetes.io/dockerconfigjson
-    files:
-      - .dockerconfigjson
-  - name: sweetrpg-COMPONENT-web-env
-    type: Opaque
-    envs:
-      - secrets.env
-  - name: sweetrpg-COMPONENT-web-config-env
-    type: Opaque
-    files:
-      - newrelic.ini
+  - ingress.yaml
+  - pod-monitor.yaml
 
-commonLabels:
-  platform: sweetrpg
-  app: COMPONENT
-  component: web
+labels:
+    - pairs:
+            platform: sweetrpg
+            app: COMPONENT
+            component: web
 
 generatorOptions:
   disableNameSuffixHash: true

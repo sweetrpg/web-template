@@ -22,6 +22,8 @@ spec:
         platform: sweetrpg
         app: COMPONENT
         component: web
+      annotations:
+        reloader.stakater.com/auto: "true"
     spec:
       serviceAccountName: sweetrpg-COMPONENT-web
       imagePullSecrets:
