@@ -1,0 +1,96 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sweetrpg-COMPONENT-web"
+version = "0.0.1"
+description = "COMPONENT web frontend for SweetRPG"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.14"
+authors = [
+    { name = "Paul Schifferer", email = "dm@sweetrpg.com" },
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "Framework :: Flask",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+]
+dependencies = [
+    "analytics-python<2.0",
+    "dnspython<3.0.0",
+    "Flask-Caching",
+    "Flask-CORS",
+    "Flask-DotEnv",
+    "Flask-Migrate",
+    "Flask-MongoEngine",
+    "Flask-Session",
+    "Flask~=3.1",
+    "kanka",
+    "python-dateutil",
+    "python-dotenv",
+    "python-editor",
+    "python-logstash-async",
+    "PyYAML",
+    "redis",
+    "requests",
+    "sentry-sdk[flask]",
+    "SQLAlchemy",
+    "sweetrpg-db",
+    "sweetrpg-web-core",
+    "sweetrpg-client",
+    "urllib3",
+]
+
+[project.urls]
+Documentation = "https://sweetrpg.github.io/sweetrpg/COMPONENT/web"
+
+[project.scripts]
+sweetrpg-COMPONENT-web = "sweetrpg_COMPONENT_web.cli:main"
+
+[dependency-groups]
+test = [
+    "asgiref",
+    "blinker",
+    "coverage-badge~=1.0",
+    "pytest",
+    "pytest-cov",
+]
+docs = [
+    "Pallets-Sphinx-Themes",
+    "Sphinx",
+    "sphinx-issues",
+    "sphinxcontrib-log-cabinet",
+    "sphinx-tabs",
+    "rstcheck",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sweetrpg_COMPONENT_web"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-p no:warnings --doctest-modules"
+doctest_optionflags = ["NORMALIZE_WHITESPACE", "ELLIPSIS"]
+
+[tool.coverage.run]
+branch = true
+source = [
+    "sweetrpg_COMPONENT_web",
+    "tests",
+]
+
+[tool.coverage.paths]
+source = [
+    "src",
+    "*/site-packages",
+]
