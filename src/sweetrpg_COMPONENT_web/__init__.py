@@ -3,8 +3,8 @@ __author__ = "Paul Schifferer <dm@sweetrpg.com>"
 """
 """
 
-__title__ = "sweetrpg-library-web"
-__description__ = "Web microservice for SweetRPG Library"
+__title__ = "sweetrpg-COMPONENT-web"
+__description__ = "Web microservice for SweetRPG COMPONENT"
 __url__ = "https://sweetrpg.com"
 __version__ = "0.0.0"
 __build__ = 0x000000

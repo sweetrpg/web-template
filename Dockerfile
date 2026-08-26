@@ -3,7 +3,9 @@
 # Licensed under the MIT License. See https://go.microsoft.com/fwlink/?linkid=2090316 for license information.
 #-------------------------------------------------------------------------------------------------------------
 
-FROM python:3.11
+FROM python:3.14
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /usr/local/bin/
 
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
@@ -17,12 +19,10 @@ ENV PYTHONUNBUFFERED 1
 ARG USERNAME=sweetrpg
 ARG USER_UID=1001
 ARG USER_GID=$USER_UID
-ARG REQUIREMENTS=requirements/app.txt
 
-# Uncomment the following COPY line and the corresponding lines in the `RUN` command if you wish to
-# include your requirements in the image itself. It is suggested that you only do this if your
-# requirements rarely (if ever) change.
-COPY $REQUIREMENTS /tmp/pip-tmp/requirements.txt
+# Export the frozen lockfile to a plain requirements.txt for the pip-style system install
+# below (the git-pinned dependency resolves to a locked commit hash).
+COPY pyproject.toml uv.lock /tmp/uv-project/
 
 # Configure apt and install packages
 RUN apt-get update \
@@ -32,14 +32,16 @@ RUN apt-get update \
     && apt-get install -y git iproute2 procps lsb-release \
     #
     # Install pylint
-    && pip install pylint \
+    && uv pip install --system pylint \
     #
     # Other stuff
     # && apt-get install -y postgresql-client \
     #
-    # Update Python environment based on requirements.txt
-    && pip --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
-    && rm -rf /tmp/pip-tmp \
+    # Update Python environment based on uv.lock (--locked fails the build if the lock
+    # is out of date with pyproject.toml; --frozen would silently ship stale deps)
+    && uv export --project /tmp/uv-project --locked --no-hashes --no-emit-project -o /tmp/uv-project/requirements.txt \
+    && uv pip install --system --no-cache -r /tmp/uv-project/requirements.txt \
+    && rm -rf /tmp/uv-project \
     #
     # Create a non-root user to use if preferred - see https://aka.ms/vscode-remote/containers/non-root-user.
     && groupadd --gid $USER_GID $USERNAME \
